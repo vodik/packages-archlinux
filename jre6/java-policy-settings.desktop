@@ -1,8 +1,8 @@
 [Desktop Entry]
-Exec=/opt/java/bin/policytool
+Exec=/opt/java6/bin/policytool
 Icon=java
-Name[cs]=Nastavení politiky Java aplikací
-Name=Java Policy Settings
+Name[cs]=Nastavení politiky Java 6 aplikací
+Name=Java 6 Policy Settings
 Path=
 StartupNotify=true
 Terminal=false

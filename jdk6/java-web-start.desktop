@@ -1,11 +1,11 @@
 [Desktop Entry]
-Exec=/opt/java/jre/bin/javaws-launcher %f
-GenericName[cs]=Spravovat a spouštět aplikace Java Web Start
-GenericName=Manage and run Java Web Start Applications
+Exec=/opt/java6/jre/bin/javaws-launcher %f
+GenericName[cs]=Spravovat a spouštět aplikace Java 6 Web Start
+GenericName=Manage and run Java 6 Web Start Applications
 Icon=java
 MimeType=application/x-java-jnlp-file;
-Name[cs]=Java Web Start
-Name=Java Web Start
+Name[cs]=Java 6 Web Start
+Name=Java 6 Web Start
 Path=
 StartupNotify=true
 Terminal=false

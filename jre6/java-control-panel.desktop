@@ -1,10 +1,10 @@
 [Desktop Entry]
-Exec=/opt/java/bin/jcontrol
-GenericName[cs]=Nastavení prostředí Java
-GenericName=Java Environment Settings
+Exec=/opt/java6/bin/jcontrol
+GenericName[cs]=Nastavení prostředí Java 6
+GenericName=Java 6 Environment Settings
 Icon=java
-Name[cs]=Nastavení Javy
-Name=Java Control Panel
+Name[cs]=Nastavení Javy 6
+Name=Java 6 Control Panel
 Path=
 StartupNotify=true
 Terminal=false

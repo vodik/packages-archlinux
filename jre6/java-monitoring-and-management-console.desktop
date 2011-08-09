@@ -1,8 +1,8 @@
 [Desktop Entry]
-Exec=/opt/java/bin/jconsole
+Exec=/opt/java6/bin/jconsole
 Icon=java
-Name[cs]=Konzole monitorování a správy prostředí Java
-Name=Java Monitoring and Management Console
+Name[cs]=Konzole monitorování a správy prostředí Java 6
+Name=Java 6 Monitoring and Management Console
 StartupNotify=true
 Terminal=false
 Type=Application
