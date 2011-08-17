@@ -4,10 +4,11 @@
 # Contributor: Vladimir Chizhov <jagoterr@gmail.com>
 # Contributor: Robert Emil Berge <filoktetes@linuxophic.org>
 # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
+# Contributor: John K. Luebs <jkluebs@luebsphoto.com>
 
 pkgname=recoll
-pkgver=1.15.8
-pkgrel=1
+pkgver=1.15.9
+pkgrel=jkl1
 pkgdesc="Full text search tool based on Xapian backend"
 arch=('i686' 'x86_64')
 url="http://www.lesbonscomptes.com/recoll/"
@@ -25,7 +26,7 @@ optdepends=('unzip: for the OpenOffice.org documents'
             'python2: for using some filters')
 install=recoll.install
 source=(http://www.lesbonscomptes.com/${pkgname}/${pkgname}-${pkgver}.tar.gz)
-md5sums=('ca08ff6b8898587c120effd98cc9c85a')
+md5sums=('93755266553f4a403d1b9293212aae16')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
