@@ -17,5 +17,5 @@ post_remove() {
 	# else
 	# 	rm /etc/mailcap
 	# fi
-    .
+    :
 }
