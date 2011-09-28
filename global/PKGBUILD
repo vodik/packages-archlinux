@@ -3,8 +3,8 @@
 # Contributor: John K. Luebs <jkluebs@luebsphoto.com>
 
 pkgname=global
-pkgver=5.9.7
-pkgrel=1
+pkgver=6.0
+pkgrel=jkl1
 pkgdesc="A source code tag system"
 arch=(i686 x86_64)
 url="http://www.gnu.org/software/global/"
@@ -14,6 +14,8 @@ optdepends=('idutils' 'perl>=4')
 backup=('etc/gtags.conf')
 install=${pkgname}.install
 source=(http://tamacom.com/global/$pkgname-$pkgver.tar.gz gtags.conf.patch)
+md5sums=('5a6439f1fee02d8df3b1ed83049c294e'
+         '69677bb394af7ef71ff5db7ffd227fa4')
 
 build() {
 	cd $startdir/src/$pkgname-$pkgver
@@ -31,5 +33,3 @@ build() {
 	mkdir -p $startdir/pkg/usr/share/emacs/site-lisp
 	ln -s /usr/share/gtags/gtags.el $startdir/pkg/usr/share/emacs/site-lisp/gtags.el
 }
-md5sums=('cd21186c36bc229bd1d9c3cdb51cdcf0'
-         '1034584f04eb5b27fa49671d8308c931')
