@@ -1,0 +1,32 @@
+# $Id: PKGBUILD 106867 2011-01-19 15:23:45Z jgc $
+# Maintainer: Jan de Groot <jgc@archlinux.org>
+
+_pkgbasename=libxaw
+pkgname=lib32-$_pkgbasename
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="X11 Athena Widget library (32-bit)"
+arch=('x86_64')
+license=('custom')
+url="http://xorg.freedesktop.org/"
+depends=('lib32-libxmu' 'lib32-libxpm')
+makedepends=('xorg-util-macros' 'gcc-multilib')
+options=('!libtool')
+source=(${url}/releases/individual/lib/libXaw-${pkgver}.tar.bz2)
+sha1sums=('5f8fc1b10316f31d4c6fa1d938b2297ff5bd2da5')
+
+build() {
+  export CC="gcc -m32"
+
+  cd "${srcdir}/libXaw-${pkgver}"
+  ./configure --prefix=/usr --libdir=/usr/lib32 --sysconfdir=/etc --disable-static
+  make
+}
+
+package() {
+  cd "$srcdir/libXaw-$pkgver"
+
+  make DESTDIR="${pkgdir}" install
+  rm -rf "${pkgdir}"/usr/{include,share} "${pkgdir}"/etc
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}"
+}
