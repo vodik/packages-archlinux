@@ -49,5 +49,4 @@ package() {
     mkdir -p "${pkgdir}/usr/src"
     cp -a src "${pkgdir}/usr/src/vboxhost-${pkgver}"
     cp ${srcdir}/dkms.conf "${pkgdir}/usr/src/vboxhost-${pkgver}"
-    chmod -R 0644 "$pkgdir/usr/src/vboxhost-${pkgver}"
 }
