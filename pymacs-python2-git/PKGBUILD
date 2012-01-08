@@ -1,7 +1,7 @@
 # Maintainer: Mitchel Humpherys <mitch.special@gmail.com>
 
 pkgname=pymacs-python2-git
-pkgver=20110914
+pkgver=20111219
 pkgrel=1
 pkgdesc="Interface between Emacs List and Python (Python3 support)"
 url="https://github.com/pinard/Pymacs"
@@ -29,12 +29,9 @@ build() {
 	cd $_gitname
   fi
 
-  make PREFIX=/usr
-  make pymacs.pdf
+  make PYTHON=python2 PREFIX=/usr
+  make PYTHON=python2 pymacs.pdf
   emacs -batch -f batch-byte-compile pymacs.el
-  # ./configure --prefix=/usr
-  make PYTHON=python2 || return 1
-  # make DESTDIR=$startdir/pkg install
 }
 
 package() {
