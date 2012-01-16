@@ -1,6 +1,6 @@
 # Maintainer: Linus Sjögren <thelinx@unreliablepollution.net>
 pkgname=lua-penlight-git
-pkgver=20120115
+pkgver=20120116
 pkgrel=1
 pkgdesc="A set of pure Lua libraries focusing on input data handling, functional programming, and OS path management."
 arch="any"
@@ -33,9 +33,17 @@ build() {
   #
 
   cd "$srcdir/$_gitname"
-	mkdir -p $pkgdir/usr/share/lua/5.1/pl
-	install -Dm0664 lua/pl/* \
-		$pkgdir/usr/share/lua/5.1/pl/
-	install -Dm0664 LICENCE.txt \
-		$pkgdir/usr/share/licenses/$pkgname/LICENCE.txt
+
+  (cd "docs" && lua docgen.lua)
 } 
+
+package() {
+  cd "$srcdir/$_gitname"
+  mkdir -p $pkgdir/usr/share/doc/lua-penlight
+  cp -dR docs/* $pkgdir/usr/share/doc/lua-penlight
+  mkdir -p $pkgdir/usr/share/lua/5.1
+  cp -dR lua/pl $pkgdir/usr/share/lua/5.1
+  install -D LICENCE.txt $pkgdir/usr/share/licenses/$pkgname/LICENCE.txt
+  find $pkgdir/usr -type d -exec chmod 0755 '{}' +
+  find $pkgdir/usr \! -type d -exec chmod 0644 '{}' +
+}
