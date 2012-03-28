@@ -3,11 +3,11 @@
 pkgname=apache-ant-contrib
 _pkgname=ant-contrib
 pkgver=1.0b3
-pkgrel=1jkl
+pkgrel=2jkl
 pkgdesc="Contributed tasks for Apache Ant"
 arch=(any)
 url="http://www.gnu.org/software/global/"
-license=('GPL')
+license=('apache')
 source=(http://downloads.sourceforge.net/project/ant-contrib/ant-contrib/${pkgver}/ant-contrib-${pkgver}-bin.zip)
 md5sums=('c5a75fc28cbc52f09bd43b5506978601')
 
