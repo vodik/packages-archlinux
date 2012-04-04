@@ -2,7 +2,7 @@
 # based on 'cross-arm-elf-binutils' by Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=cross-arm-none-eabi-binutils
-pkgver=2.21.1
+pkgver=2.22
 pkgrel=1
 _xprefix=/usr
 pkgdesc="A set of programs to assemble and manipulate binary and object files"
@@ -12,7 +12,7 @@ options=(!libtool)
 url="http://sources.redhat.com/binutils"
 depends=('glibc' 'zlib')
 source=(ftp://ftp.gnu.org/gnu/binutils/binutils-${pkgver}.tar.bz2)
-md5sums=('bde820eac53fa3a8d8696667418557ad')
+md5sums=('ee0f10756c84979622b992a4a61ea3f5')
 
 build() {
   cd $srcdir/binutils-${pkgver}
