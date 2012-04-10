@@ -1,0 +1,43 @@
+# Contributor: MyMaud <russ@russgibson.org>
+# Maintener: Frederic Bezies <mymaud@gmail.com>
+
+pkgname=pan-unstable
+pkgver=20120127
+pkgrel=1jkl
+pkgdesc="Pan is a Usenet newsreader that's good at both text and binaries. Testing repo by Heinrich Müeller."
+url="http://git.gnome.org/browse/pan2"
+__gitname=pan2
+__gitroot="git://git.gnome.org/pan2"
+_gitrev_before=${pkgver:0:4}-${pkgver:4:2}-${pkgver:6}
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('autoconf' 'automake' 'gmime' 'gtkspell' 'gnome-common' 'gtk3' 'gnome-doc-utils' 'libgnome-keyring' 'libnotify')
+makedepends=('git' 'intltool')
+conflicts=('pan' 'pan-gtk3')
+provides=('pan')
+
+build() {
+    export LC_ALL="C"
+    cd ${srcdir}
+    msg "Connecting GIT server...."
+
+    if [ -d $__gitname ] ; then
+	cd $__gitname && git pull origin
+	msg "The local files are updated."
+    else
+	git clone $__gitroot $__gitname
+    fi
+    msg "GIT checkout done or server timeout"
+    msg "Starting installing..."
+
+    cd ${srcdir}
+    rm -rf $srcdir/${__gitname}-build
+    git clone ${__gitname} ${__gitname}-build
+    cd ${srcdir}/${__gitname}-build
+
+    git checkout $(git rev-list -n1 --before=${_gitrev_before} master)
+
+    ./autogen.sh --prefix=/usr --enable-libnotify --with-gtkspell --with-gnutls # --with-gtk3
+    make
+    make prefix=${pkgdir}/usr install
+}
