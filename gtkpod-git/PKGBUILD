@@ -1,0 +1,47 @@
+# $Id: PKGBUILD 157035 2012-04-23 09:53:22Z ibiru $
+# Maintainer: Kevin Piche <kevin@archlinux.org>
+# Contributor: Aaron Griffin <aaron@archlinux.org>
+
+pkgname=gtkpod-git
+pkgver=20120502
+pkgrel=1
+pkgdesc="A platform independent GUI for Apple's iPod using GTK3"
+arch=('i686' 'x86_64')
+url="http://gtkpod.sourceforge.net"
+license=('GPL')
+depends=('anjuta' 'curl' 'flac' 'libid3tag' 'libgpod' 'awk')
+makedepends=('flex' 'intltool')
+optdepends=('libmp4v2: MP4/h264 support'
+            'vorbis-tools: OGG support'
+            'id3v2: mp3 conversion support')
+install=gtkpod.install
+conflicts=('gtkpod')
+provides=('gtkpod')
+options=('!libtool')
+
+_gitroot=git://gtkpod.git.sourceforge.net/gitroot/gtkpod/gtkpod
+_gitname=gtkpod
+
+build() {
+    cd ${srcdir}
+
+    if [ -d $srcdir/$_gitname ] ; then
+        cd $_gitname && git pull
+    else
+        git clone $_gitroot $_gitname
+    fi
+
+    rm -Irf ${srcdir}/$_gitname-build
+
+    cp -r ${srcdir}/$_gitname ${srcdir}/$_gitname-build
+
+    cd ${srcdir}/$_gitname-build
+
+    ./autogen.sh --prefix=/usr
+    make
+}
+
+package() {
+    cd "${srcdir}/$_gitname-build"
+    make DESTDIR="${pkgdir}" install
+}
