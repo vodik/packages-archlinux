@@ -1,0 +1,55 @@
+# Maintainer: sebikul <sebikul@gmail.com>
+# Contributor: Adam Eberlin < ae at adameberlin dot com >
+
+pkgname=usbmuxd-git
+pkgver=20120502
+pkgrel=1
+pkgdesc="A USB multiplexing daemon."
+url="http://pims.selfip.net/git/usbmuxd/"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('glib2' 'libxml2')
+makedepends=('gcc' 'git' 'make' 'cmake' 'swig')
+install=usbmuxd-git.install
+provides=('usbmuxd')
+conflicts=('usbmuxd')
+
+_gitroot="http://git.sukimashita.com/usbmuxd.git"
+_gitname="usbmuxd"
+
+build() {
+
+    cd ${srcdir}
+    msg "Connecting to GIT server...."
+
+    if [ -d ${srcdir}/$_gitname ] ; then
+	cd $_gitname && git pull origin
+	msg "Local repository updated."
+    else
+	git clone $_gitroot $_gitname
+    fi
+
+    msg "GIT checkout done or server timeout"
+
+    msg "Removing old build directory..."
+    rm -Irf ${srcdir}/$_gitname-build
+
+    msg "Creating new build directory..."
+    cp -r ${srcdir}/$_gitname ${srcdir}/$_gitname-build
+
+    cd ${srcdir}/$_gitname-build
+
+    #msg "Applying patches..."
+
+    msg "Starting make..."
+
+    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLIB_SUFFIX=""
+
+    make
+    make DESTDIR=${pkgdir} install || return 1
+}
+
+package () {
+    cd "${srcdir}/$_gitname-build"
+    make DESTDIR="${pkgdir}" install
+}
