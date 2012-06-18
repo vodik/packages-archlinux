@@ -1,7 +1,7 @@
 #Maintainer: John K. Luebs <jkluebs@luebsphoto.com>
 
 pkgname=etckeeper
-pkgver=20111218
+pkgver=20120417
 pkgrel=1
 pkgdesc="collection of tools to let /etc be stored in a git, hg or bzr repository."
 arch=('any')
