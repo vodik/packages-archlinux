@@ -1,0 +1,58 @@
+ fs/cifs/cifs_dfs_ref.c |    4 ++--
+ fs/cifs/connect.c      |    7 ++++++-
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/fs/cifs/cifs_dfs_ref.c b/fs/cifs/cifs_dfs_ref.c
+index 6873bb6..31488bf 100644
+--- a/fs/cifs/cifs_dfs_ref.c
++++ b/fs/cifs/cifs_dfs_ref.c
+@@ -216,8 +216,8 @@ char *cifs_compose_mount_options(const char *sb_mountdata,
+ 		strcat(mountdata, fullpath + ref->path_consumed);
+ 	}
+ 
+-	/*cFYI(1, "%s: parent mountdata: %s", __func__,sb_mountdata);*/
+-	/*cFYI(1, "%s: submount mountdata: %s", __func__, mountdata );*/
++	cFYI(1, "%s: parent mountdata: %s", __func__,sb_mountdata);
++	cFYI(1, "%s: submount mountdata: %s", __func__, mountdata );
+ 
+ compose_mount_options_out:
+ 	kfree(srvIP);
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index f31dc9a..935d957 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -1576,7 +1576,7 @@ cifs_parse_mount_options(const char *mountdata, const char *devname,
+ 			value++;
+ 
+ 			/* Set tmp_end to end of the string */
+-			tmp_end = (char *) value + strlen(value);
++			tmp_end = (char *) value + strlen(value) + 1;
+ 
+ 			/* Check if following character is the deliminator
+ 			 * If yes, we have encountered a double deliminator
+@@ -1584,6 +1584,8 @@ cifs_parse_mount_options(const char *mountdata, const char *devname,
+ 			 */
+ 			if (tmp_end < end && tmp_end[1] == delim)
+ 				tmp_end[0] = delim;
++			else
++				goto no_double_delim;
+ 
+ 			/* Keep iterating until we get to a single deliminator
+ 			 * OR the end
+@@ -1601,6 +1603,8 @@ cifs_parse_mount_options(const char *mountdata, const char *devname,
+ 				/* Reached the end of the mount option string */
+ 				options = end;
+ 
++no_double_delim:
++			options = tmp_end;
+ 			/* Now build new password string */
+ 			temp_len = strlen(value);
+ 			vol->password = kzalloc(temp_len+1, GFP_KERNEL);
+@@ -1618,6 +1622,7 @@ cifs_parse_mount_options(const char *mountdata, const char *devname,
+ 					i++;
+ 			}
+ 			vol->password[j] = '\0';
++			printk("options before leaving Opt_pass: %s", options);
+ 			break;
+ 		case Opt_blank_ip:
+ 			vol->UNCip = NULL;
