@@ -1,7 +1,7 @@
 #Maintainer: John K. Luebs <jkluebs@luebsphoto.com>
 
 pkgname=etckeeper
-pkgver=20120417
+pkgver=20120812
 pkgrel=1
 pkgdesc="collection of tools to let /etc be stored in a git, hg or bzr repository."
 arch=('any')
@@ -12,7 +12,7 @@ provides=('etckeeper')
 makedepends=('git')
 depends=('git')
 source=('etckeeper.conf.patch')
-sha1sums=('afe7012bf4fe66b43fda146c25b182832574ede2')
+sha1sums=('8d77501cc79de7fb180f6a95262a57cfdf4d47dc')
 
 _gitroot="git://git.kitenet.net/etckeeper"
 _gitname="etckeeper"
