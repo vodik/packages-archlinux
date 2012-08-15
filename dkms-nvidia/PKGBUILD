@@ -4,7 +4,7 @@
 
 pkgname=dkms-nvidia
 _pkgname=nvidia
-pkgver=295.59
+pkgver=304.37
 pkgrel=1
 pkgdesc="NVIDIA dynamic kernel module (DKMS) drivers for kernel26."
 arch=(i686 x86_64)
@@ -18,19 +18,19 @@ install=${_pkgname}.install
 options=(!strip)
 
 if [ "$CARCH" = "i686" ]; then
-    _arch='x86'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-    source=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    md5sums=('bef732dfcf5cb079c06c1e8672d8d5dd')
+	_arch='x86'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
+  source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+  md5sums=('ee3e97109201ab954c96860e28ada611')
 elif [ "$CARCH" = "x86_64" ]; then
-    _arch='x86_64'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-    source=("http://us.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    md5sums=('864d5dd1a29cb303bd355707413e2b98')
+	_arch='x86_64'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
+  source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+  md5sums=('65fce562c0df3def06012db9ff6bafa1')
 fi
 
 source[1]="dkms.conf"
-md5sums[1]='d739cb023db8aa97a04fe0ad06e1cba8'
+md5sums[1]='4bedd2faa7a64e4e61a530f3f1d63ff6'
 
 build() {
 	cd $srcdir
