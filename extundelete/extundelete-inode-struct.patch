@@ -1,0 +1,10 @@
+--- extundelete-0.2.0/src/block.c.old	2010-04-15 20:59:33.000000000 -0400
++++ extundelete-0.2.0/src/block.c	2012-10-06 20:27:45.598683911 -0400
+@@ -69,6 +69,7 @@
+         ext2_filsys             fs;
+         ext2_ino_t              ino;
+         struct ext2_inode       *inode;
++        struct ext2_inode       inodebuf;
+         int                     type;
+         int                     level;
+         int                     max_depth;
