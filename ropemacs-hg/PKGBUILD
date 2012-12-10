@@ -2,7 +2,7 @@
 
 _pkgname=ropemacs
 pkgname=${_pkgname}-hg
-pkgver=403
+pkgver=405
 pkgrel=1
 _hgroot=https://bitbucket.org/agr
 _hgrepo=ropemacs
