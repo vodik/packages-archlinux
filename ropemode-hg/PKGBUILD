@@ -2,7 +2,7 @@
 
 _pkgname=ropemode
 pkgname=${_pkgname}-hg
-pkgver=57
+pkgver=60
 pkgrel=1
 _hgroot=https://bitbucket.org/agr
 _hgrepo=$_pkgname
