@@ -6,7 +6,7 @@ pkgbase=linux               # Build stock -ARCH kernel
 #pkgbase=linux-custom       # Build kernel with a different name
 _srcname=linux-3.7
 pkgver=3.7.4
-pkgrel=1
+pkgrel=2jkl
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -19,14 +19,16 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
-        'fat-3.6.x.patch')
+        'fat-3.6.x.patch'
+        'revert-iwlwifi-fix.patch')
 md5sums=('21223369d682bcf44bcdfe1521095983'
          '87640faf7264639e1300829d1b292076'
          'ce16969e83a649c3e7d71031b7f752c2'
          '610443591e7d3f619b8250833958eb7e'
          'eb14dcfd80c00852ef81ded6e826826a'
          '9d3c56a4b999c8bfbd4018089a62f662'
-         '88d501404f172dac6fcb248978251560')
+         '88d501404f172dac6fcb248978251560'
+         'e37b0159b8d1dc4310f48679f80844b3')
 
 _kernelname=${pkgbase#linux}
 
@@ -47,6 +49,11 @@ build() {
   # fix cosmetic fat issue
   # https://bugs.archlinux.org/task/32916
   patch -Np1 -i "${srcdir}/fat-3.6.x.patch"
+
+  # fix iwlwifi "fix" that breaks shit on T420
+  # http://lkml.indiana.edu/hypermail/linux/kernel/1301.2/02573.html
+  patch -Np1 -i "${srcdir}/revert-iwlwifi-fix.patch"
+
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
