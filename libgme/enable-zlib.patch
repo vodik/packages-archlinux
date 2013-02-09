@@ -1,0 +1,39 @@
+--- game-music-emu-0.6.0/gme/blargg_config.h.orig	2013-02-09 04:32:05.943341110 -0500
++++ game-music-emu-0.6.0/gme/blargg_config.h	2013-02-09 04:32:24.116643253 -0500
+@@ -4,7 +4,7 @@
+ #define BLARGG_CONFIG_H
+ 
+ // Uncomment to use zlib for transparent decompression of gzipped files
+-//#define HAVE_ZLIB_H
++#define HAVE_ZLIB_H
+ 
+ // Uncomment and edit list to support only the listed game music types,
+ // so that the others don't get linked in at all.
+--- game-music-emu-0.6.0/gme/Data_Reader.cpp.orig	2011-05-09 06:35:12.000000000 -0400
++++ game-music-emu-0.6.0/gme/Data_Reader.cpp	2013-02-09 04:40:14.035836763 -0500
+@@ -290,13 +290,13 @@
+ 
+ long Gzip_File_Reader::size() const { return size_; }
+ 
+-long Gzip_File_Reader::read_avail( void* p, long s ) { return gzread( file_, p, s ); }
++long Gzip_File_Reader::read_avail( void* p, long s ) { return gzread( (gzFile)file_, p, s ); }
+ 
+-long Gzip_File_Reader::tell() const { return gztell( file_ ); }
++long Gzip_File_Reader::tell() const { return gztell( (gzFile)file_ ); }
+ 
+ blargg_err_t Gzip_File_Reader::seek( long n )
+ {
+-	if ( gzseek( file_, n, SEEK_SET ) >= 0 )
++	if ( gzseek( (gzFile)file_, n, SEEK_SET ) >= 0 )
+ 		return 0;
+ 	if ( n > size_ )
+ 		return eof_error;
+@@ -307,7 +307,7 @@
+ {
+ 	if ( file_ )
+ 	{
+-		gzclose( file_ );
++		gzclose( (gzFile)file_ );
+ 		file_ = 0;
+ 	}
+ }
