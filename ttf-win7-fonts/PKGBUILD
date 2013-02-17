@@ -47,15 +47,15 @@
 
 pkgname=ttf-win7-fonts
 pkgver=7.1
-pkgrel=3jkl
+pkgrel=4jkl
 pkgdesc="Microsoft Windows 7 TrueType Fonts"
 arch=('any')
 url="http://www.microsoft.com"
 license=('custom')
 depends=('fontconfig')
 makedepends=('fontforge')
-provides=('ttf-vista-fonts' 'ttf-ms-fonts' 'ttf-tahoma')
-conflicts=('ttf-vista-fonts' 'ttf-ms-fonts' 'ttf-tahoma')
+provides=('ttf-vista-fonts' 'ttf-ms-fonts')
+conflicts=('ttf-vista-fonts' 'ttf-ms-fonts')
 install=$pkgname.install
 
 ###################################################################
@@ -74,7 +74,6 @@ source=('ariblk.ttf'
         'verdana.ttf' 'verdanab.ttf' 'verdanai.ttf' 'verdanaz.ttf'
         'webdings.ttf'
         'wingding.ttf'
-        'tahoma.ttf'  'tahomabd.ttf'
         'calibri.ttf' 'calibrib.ttf' 'calibrii.ttf' 'calibriz.ttf'
         'cambria.ttc' 'cambriab.ttf' 'cambriai.ttf' 'cambriaz.ttf'
         'Candara.ttf' 'Candarab.ttf' 'Candarai.ttf' 'Candaraz.ttf'
@@ -115,8 +114,6 @@ sha256sums=('6dab274b36928bc76b5002eac90a52f2450d07b9327be95acf2bea1e56e4e1da'
             'bf2eb7af0acdedaf1984fe2e68c1eb5dcf69798c4161100272d086701e6b10cf'
             '1161ce511c44eb5464a4f8144aaf3eb965a50ed66957ad7d38e497ab9d958e5a'
             'd7c38355bd52f52e043ed904f3463d476925300d1bdca9e842b28077ca3549b8'
-            'bc872275da387214f892f4a7d80492910f545cf5d3d443dc73f674dda98d7540'
-            '6c8ad300898b2cfef2f9168ab9d7bbb344842e42177acc350489fbc5769ca94b'
             '436cb479a8f9eff517016868323bdfbca1a053bba4cc55c8753859b64d041c5c'
             'ce7dd6ba37e7b8dff865b6ce334ef773b9ad86d8a9d495c309ced108856bed54'
             'd9f13268dca6e828cb9ed5827dc99d188cf0d7c55349f92802fd6532926bdfbf'
