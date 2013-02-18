@@ -1,0 +1,76 @@
+# Maintainer: Guten Ye
+
+pkgname=ttf-mac
+pkgver=10.8.1
+pkgrel=5
+pkgdesc='Mac OS X TrueType fonts. Please consult https://github.com/GutenYe/aur/tree/master/ttf-mac for Installation.'
+arch=('any')
+url='http://www.apple.com/osx/'
+license=('custom')
+depends=('fontconfig')
+makedepends=('fondu')
+conflicts=('ttf-mac-fonts')
+install='install'
+
+###################################################################
+#        Normal        Bold           Italic         Bold+Italic  #
+###################################################################
+source=(
+	'Apple Braille.ttf'
+	'Apple Braille Outline 6 Dot.ttf'
+	'Apple Braille Outline 8 Dot.ttf'
+	'Apple Braille Pinpoint 6 Dot.ttf'
+	'Apple Braille Pinpoint 8 Dot.ttf'
+	'Courier.dfont'
+	'Geeza Pro.ttf' 'Geeza Pro Bold.ttf'
+	'Geneva.dfont'
+	'Helvetica.dfont'
+	'HelveticaNeue.dfont'
+	'HelveticaNeueDeskUI.ttc'
+	'Keyboard.ttf'
+	'LucidaGrande.ttc'
+	'MarkerFelt.ttc'
+	'Menlo.ttc'
+	'Monaco.dfont'
+	'Symbol.ttf'
+	'ThonburiBold.ttf'
+	'Thonburi.ttf'
+	'Times.dfont'
+	'ZapfDingbats.ttf'
+	)
+
+build() {
+  cd "$srcdir"
+
+	fondu -force *.dfont
+}
+
+package() {
+  cd "$srcdir"
+
+  install -dm755 "$pkgdir/usr/share/fonts/TTF"
+  install -m644 *.ttf *.ttc "$pkgdir/usr/share/fonts/TTF"
+}
+
+md5sums=('52455c11f8e401092df8f7c2e8912d8f'
+         '23be6197029ed49537884d28c0ba4c10'
+         '78ae851e6fe7dc652501fc62d3d9d6db'
+         '0310cab5c0d8fe2a5bd54aacf0cfbd9a'
+         '229b1af003990e9d577678f3a2f57c18'
+         '56e90cce8c39cb79effe5a170a8b2572'
+         '9bdf0da295eed72a4cd0e6bc72446bbf'
+         '3af9b99a98e7edeff2d09bc94cb42003'
+         'f8899861c19623bac0d4ca7506c48573'
+         '1f678df6a12caa2a836f5b5ef6d7d111'
+         '9b4a983303a01fb008190185e57d79ab'
+         'e9f3a3d70a55a46b2cc0d3e614acd7a3'
+         '85a3a7a405b9ee306686418277fcefab'
+         '2215b52a960a7b0fd1a69f69611c4b8c'
+         '116a49999fb3b9eac6ff0da90eb242e7'
+         '4457765397f57a9aa8a4f9884b65c7c0'
+         '9074c3d98f5f9a2795c4672892198166'
+         'cd64343217ebef9d1959b0e70dee400b'
+         '61f085541e3cc96bb42b0fed23f1a735'
+         '62b0e8982d6bda8c45021e0cfe47658f'
+         '7e7cfed05c8f4914baddde483b3a58c9'
+         'd45b227261a2803cccff8e58fd284bc6')
