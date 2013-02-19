@@ -47,7 +47,7 @@
 
 pkgname=ttf-win7-fonts
 pkgver=7.1
-pkgrel=4jkl
+pkgrel=5jkl
 pkgdesc="Microsoft Windows 7 TrueType Fonts"
 arch=('any')
 url="http://www.microsoft.com"
@@ -55,7 +55,7 @@ license=('custom')
 depends=('fontconfig')
 makedepends=('fontforge')
 provides=('ttf-vista-fonts' 'ttf-ms-fonts')
-conflicts=('ttf-vista-fonts' 'ttf-ms-fonts')
+conflicts=('ttf-vista-fonts' 'ttf-ms-fonts' 'ttf-tahoma')
 install=$pkgname.install
 
 ###################################################################
@@ -80,6 +80,7 @@ source=('ariblk.ttf'
         'consola.ttf' 'consolab.ttf' 'consolai.ttf' 'consolaz.ttf'
         'constan.ttf' 'constanb.ttf' 'constani.ttf' 'constanz.ttf'
         'corbel.ttf'  'corbelb.ttf'  'corbeli.ttf'  'corbelz.ttf'
+        'tahoma.ttf'  'tahomabd.ttf'
         'license.rtf')
 sha256sums=('6dab274b36928bc76b5002eac90a52f2450d07b9327be95acf2bea1e56e4e1da'
             'ca8c3f3b7608a6e8712b027ccbf584818f78e750da1240fcb5d8fa89a0b92747'
@@ -138,6 +139,8 @@ sha256sums=('6dab274b36928bc76b5002eac90a52f2450d07b9327be95acf2bea1e56e4e1da'
             '2d3fb4d471e9669a5ab2bc8aa9b359639e17af321510f3b878bae03bc259b056'
             '7e9cd651666dce6dd3ad37b8199c7798b226b8995d35e6b672b53ce0bbec59cb'
             '9c68522951940ad49354f4fce56b528414a7e83c44474ceea0582a5434693066'
+            'bc872275da387214f892f4a7d80492910f545cf5d3d443dc73f674dda98d7540'
+            '6c8ad300898b2cfef2f9168ab9d7bbb344842e42177acc350489fbc5769ca94b'
             '096cdd18e26b2b3d8cf0b3ec6a1ffb5b0eaae0fcc2105e3c145f19037a42d467')
 
 build() {
