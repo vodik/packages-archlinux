@@ -8,9 +8,9 @@
 # Maintainer: Cedric de Wijs <cedric.dewijs@telfort.nl>
 pkgname=ff-utils
 pkgver=2.4.21
-pkgrel=1
+pkgrel=1.1
 pkgdesc="Linux Force Feedback Library"
-arch=('i686')
+arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/libff/"
 license=('GPL')
 groups=()
@@ -25,10 +25,10 @@ options=()
 install=
 changelog=
 source=("http://sourceforge.net/projects/libff/files/ffutils/2.4.21/ff-utils.tar.bz2/download")
+md5sums=('37f5197aa38362cac1364d3d9f409912')
 #source=($pkgname-$pkgver.tar.gz)
 noextract=()
 #md5sums=() #generate with 'makepkg -g'
-md5sums=('37f5197aa38362cac1364d3d9f409912')
 
 build() {
   cd "$srcdir/$pkgname"
@@ -39,7 +39,7 @@ build() {
 
 package() {
   cd "$srcdir/$pkgname"
-  mkdir $pkgdir/bin
-  cp evtest ffcfstress ffmvforce ffset fftest inputattach jscal jstest $pkgdir/bin
+  mkdir -p $pkgdir/usr/bin
+  cp evtest ffcfstress ffmvforce ffset fftest inputattach jscal jstest $pkgdir/usr/bin
   #make DESTDIR="$pkgdir/" install
 }
