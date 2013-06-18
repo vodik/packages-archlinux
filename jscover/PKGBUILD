@@ -1,0 +1,46 @@
+# Maintainer: John K. Luebs <jkluebs@luebsphoto.com>
+_pkgname=JSCover
+pkgname=${_pkgname,,}
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="code coverage for JavaScript"
+arch=('i686' 'x86_64')
+url="http://siliconforks.com/jscover/"
+license=('GPL2')
+groups=()
+depends=('java-runtime')
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=('strip')
+install=
+changelog=
+source=(http://downloads.sourceforge.net/project/jscover/$_pkgname-$pkgver.zip
+  http://downloads.sourceforge.net/project/htmlunit/htmlunit/2.12/htmlunit-2.12-bin.zip)
+sha1sums=('c9cc53c45b85b04693862765d08c70c72e503e20'
+          'e85fc346135d965ace61d149b9575ec3379c129e')
+noextract=($_pkgname-$pkgver.zip)
+
+prepare() {
+  mkdir -p "$srcdir/$_pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
+  unzip "$srcdir/$_pkgname-$pkgver.zip"
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  ant jar-all
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  install -dm0755 $pkgdir/usr/share/jscover $pkgdir/usr/share/licenses/jscover
+  install -m0644 target/dist/*.jar $pkgdir/usr/share/jscover
+  install -m0644 target/classes/main/LICENSE.txt $pkgdir/usr/share/licenses/jscover
+}
+
+# vim:set ts=2 sw=2 et:
