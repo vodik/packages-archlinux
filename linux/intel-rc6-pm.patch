@@ -1,0 +1,64 @@
+diff --git a/drivers/gpu/drm/i915/i915_dma.c b/drivers/gpu/drm/i915/i915_dma.c
+index 3b315ba..d1ee611 100644
+--- a/drivers/gpu/drm/i915/i915_dma.c
++++ b/drivers/gpu/drm/i915/i915_dma.c
+@@ -1511,6 +1511,13 @@ int i915_driver_load(struct drm_device *dev, unsigned long flags)
+ 	dev_priv->dev = dev;
+ 	dev_priv->info = info;
+ 
++	spin_lock_init(&dev_priv->irq_lock);
++	spin_lock_init(&dev_priv->gpu_error.lock);
++	spin_lock_init(&dev_priv->rps.lock);
++	mutex_init(&dev_priv->dpio_lock);
++	mutex_init(&dev_priv->rps.hw_lock);
++	mutex_init(&dev_priv->modeset_restore_lock);
++
+ 	i915_dump_device_info(dev_priv);
+ 
+ 	if (i915_get_bridge_dev(dev)) {
+@@ -1602,6 +1609,7 @@ int i915_driver_load(struct drm_device *dev, unsigned long flags)
+ 
+ 	intel_irq_init(dev);
+ 	intel_gt_init(dev);
++	intel_gt_reset(dev);
+ 
+ 	/* Try to make sure MCHBAR is enabled before poking at it */
+ 	intel_setup_mchbar(dev);
+@@ -1626,14 +1634,6 @@ int i915_driver_load(struct drm_device *dev, unsigned long flags)
+ 	if (!IS_I945G(dev) && !IS_I945GM(dev))
+ 		pci_enable_msi(dev->pdev);
+ 
+-	spin_lock_init(&dev_priv->irq_lock);
+-	spin_lock_init(&dev_priv->gpu_error.lock);
+-	spin_lock_init(&dev_priv->rps.lock);
+-	mutex_init(&dev_priv->dpio_lock);
+-
+-	mutex_init(&dev_priv->rps.hw_lock);
+-	mutex_init(&dev_priv->modeset_restore_lock);
+-
+ 	dev_priv->num_plane = 1;
+ 	if (IS_VALLEYVIEW(dev))
+ 		dev_priv->num_plane = 2;
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index aa01128..b86db1e 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -4497,6 +4497,9 @@ void intel_gt_reset(struct drm_device *dev)
+ 		if (IS_IVYBRIDGE(dev) || IS_HASWELL(dev))
+ 			__gen6_gt_force_wake_mt_reset(dev_priv);
+ 	}
++
++	/* BIOS often leaves RC6 enabled, but disable it for hw init */
++	intel_disable_gt_powersave(dev);
+ }
+ 
+ void intel_gt_init(struct drm_device *dev)
+@@ -4505,8 +4508,6 @@ void intel_gt_init(struct drm_device *dev)
+ 
+ 	spin_lock_init(&dev_priv->gt_lock);
+ 
+-	intel_gt_reset(dev);
+-
+ 	if (IS_VALLEYVIEW(dev)) {
+ 		dev_priv->gt.force_wake_get = vlv_force_wake_get;
+ 		dev_priv->gt.force_wake_put = vlv_force_wake_put;

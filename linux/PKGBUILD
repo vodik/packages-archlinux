@@ -18,13 +18,15 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         'config' 'config.x86_64'
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
-        'change-default-console-loglevel.patch')
+        'change-default-console-loglevel.patch'
+        'intel-rc6-pm.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
          '0c94fa440515e289495909749d04aae4'
          '480f8efb61ee244c52d881304a0ae14b'
          'e55ce3dd5fead07eed8a6781a57c1b1b'
          'eb14dcfd80c00852ef81ded6e826826a'
-         'f3def2cefdcbb954c21d8505d23cc83c')
+         'f3def2cefdcbb954c21d8505d23cc83c'
+         'db1b0fc486e001af609a57e6bc602a79')
 
 _kernelname=${pkgbase#linux}
 
@@ -47,6 +49,8 @@ prepare() {
   # remove this when a Kconfig knob is made available by upstream
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
+
+  patch -Np1 -i "${srcdir}/intel-rc6-pm.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
