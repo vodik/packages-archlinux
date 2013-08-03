@@ -5,7 +5,7 @@
 
 pkgname=mplayer-vaapi
 pkgver=35107
-pkgrel=2.1
+pkgrel=2.2
 pkgdesc="A movie player, compiled with vaapi support"
 arch=('i686' 'x86_64')
 url="http://gitorious.org/vaapi/mplayer"
@@ -22,10 +22,10 @@ conflicts=('mplayer')
 backup=('etc/mplayer/codecs.conf' 'etc/mplayer/input.conf')
 source=(http://pkgbuild.com/~foutrelis/mplayer-vaapi-$pkgver.tar.xz
         tweak-desktop-file.patch)
-options=('!buildflags' '!emptydirs')
-install=mplayer-vaapi.install
 sha256sums=('a6c645625cc2cd6ca48764db302c926049f831e757857ece351b37b674e05e56'
             '5a09fb462729a4e573568f9e8c1f57dbe7f69c0b68cfa4f6d70b3e52c450d93b')
+options=('!buildflags' '!emptydirs')
+install=mplayer-vaapi.install
 
 build() {
   cd "$srcdir/mplayer-vaapi-$pkgver"
