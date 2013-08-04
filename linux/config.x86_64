@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 3.10.0-1 Kernel Configuration
+# Linux/x86 3.10.4-102 Kernel Configuration
 #
 CONFIG_64BIT=y
 CONFIG_X86_64=y
@@ -161,7 +161,7 @@ CONFIG_MEMCG_KMEM=y
 CONFIG_CGROUP_SCHED=y
 CONFIG_FAIR_GROUP_SCHED=y
 CONFIG_CFS_BANDWIDTH=y
-CONFIG_RT_GROUP_SCHED=y
+# CONFIG_RT_GROUP_SCHED is not set
 CONFIG_BLK_CGROUP=y
 # CONFIG_DEBUG_BLK_CGROUP is not set
 # CONFIG_CHECKPOINT_RESTORE is not set
