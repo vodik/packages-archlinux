@@ -5,8 +5,8 @@
 pkgbase=linux               # Build stock -ARCH kernel
 #pkgbase=linux-custom       # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.4
-pkgrel=102
+pkgver=3.10.5
+pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -19,18 +19,14 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
-        'intel-rc6-pm.patch'
-        'snd-us122l-vm.patch'
-        'drm-fix-fences.patch')
+        'snd-us122l-vm.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         '2e46ab138670b3171b52b849568cb42f'
+         '6366a8d4b0429ab6836c296ba298fb0e'
          '480f8efb61ee244c52d881304a0ae14b'
          '857014de1bdbdcb466854dce8e4e5aae'
          'eb14dcfd80c00852ef81ded6e826826a'
          'f3def2cefdcbb954c21d8505d23cc83c'
-         'db1b0fc486e001af609a57e6bc602a79'
-         'bb93a9023f6f40588b93d5082c143306'
-         'eed377db25ef46cc14882063b7a016b5')
+         'bb93a9023f6f40588b93d5082c143306')
 
 _kernelname=${pkgbase#linux}
 
@@ -54,9 +50,7 @@ prepare() {
   # (relevant patch sent upstream: https://lkml.org/lkml/2011/7/26/227)
   patch -Np1 -i "${srcdir}/change-default-console-loglevel.patch"
 
-  patch -Np1 -i "${srcdir}/intel-rc6-pm.patch"
   patch -Np1 -i "${srcdir}/snd-us122l-vm.patch"
-  patch -Np1 -i "${srcdir}/drm-fix-fences.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
