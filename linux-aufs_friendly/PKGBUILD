@@ -7,7 +7,7 @@
 pkgbase=linux-aufs_friendly  # Build kernel with a different name
 _srcname=linux-3.10
 pkgver=3.10.6
-pkgrel=100
+pkgrel=101
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -25,7 +25,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
          'b41c06c1154592045cc2a9d88363de14'
          '480f8efb61ee244c52d881304a0ae14b'
-         '35100333901ed61d593fe59d19efe4ec'
+         'a344382b70771fd3d5cb7c72ff1a1b34'
          'eb14dcfd80c00852ef81ded6e826826a'
          'f3def2cefdcbb954c21d8505d23cc83c'
 
