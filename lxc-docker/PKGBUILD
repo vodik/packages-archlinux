@@ -8,24 +8,24 @@
 
 # Maintainer: frio <development@frio.name>
 pkgname=lxc-docker
-pkgver=0.5.1
-pkgrel=1
+pkgver=0.5.2
+pkgrel=100
 pkgdesc="Docker - the Linux container runtime"
 arch=('x86_64')
 url="https://github.com/dotcloud/docker"
 license=('Apache License 2.0')
-depends=('bridge-utils' 'iproute2' 'aufs3' 'go' 'lxc')
+depends=('bridge-utils' 'iproute2' 'aufs3' 'go' 'lxc' 'aufs3-util')
 makedepends=('git' 'go')
 provides=('lxc-docker')
-source=('docker::git+https://github.com/dotcloud/docker.git' 'docker.service')
+source=("docker-$pkgver.tar.gz::https://github.com/dotcloud/docker/archive/v$pkgver.tar.gz" 'docker.service')
 conflicts=('lxc-docker-git')
 replaces=('dotcloud-docker')
-md5sums=('SKIP' '3fec35d152fb0b7303919ca76ab9df50')
+md5sums=('8e3711f9db1d14e50fba46b1fee6f34f'
+         '3fec35d152fb0b7303919ca76ab9df50')
 
 build() {
   export GOPATH="$srcdir/gopath"
-  cd docker
-  git checkout "v$pkgver"
+  cd "$srcdir/docker-$pkgver"
   make
 }
 
@@ -34,7 +34,7 @@ package() {
   install -D -m 644 "$srcdir/docker.service" "$pkgdir/usr/lib/systemd/system/docker.service"
 
   # install docker binary
-  install -D -m 755 "$srcdir/docker/bin/docker" "$pkgdir/usr/bin/docker"
+  install -D -m 755 "$srcdir/docker-$pkgver/bin/docker" "$pkgdir/usr/bin/docker"
 }
 
 # vim:set ts=2 sw=2 et:
