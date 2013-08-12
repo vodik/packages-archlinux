@@ -6,8 +6,8 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-aufs_friendly  # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.3
-pkgrel=1
+pkgver=3.10.6
+pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -23,9 +23,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # patches exporting symbols for the aufs module (reason for this package)
         'aufs3-base.patch' 'aufs3-standalone.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         '2120557e0a6209d48d854ad0df9314e0'
+         'b41c06c1154592045cc2a9d88363de14'
          '480f8efb61ee244c52d881304a0ae14b'
-         'e55ce3dd5fead07eed8a6781a57c1b1b'
+         '35100333901ed61d593fe59d19efe4ec'
          'eb14dcfd80c00852ef81ded6e826826a'
          'f3def2cefdcbb954c21d8505d23cc83c'
 
@@ -195,7 +195,7 @@ _package-headers() {
   # and...
   # http://bugs.archlinux.org/task/11194
   mkdir -p "${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/"
-  cp include/config/dvb/*.h "${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/"
+  # cp include/config/dvb/*.h "${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/"
 
   # add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
   # in reference to:
