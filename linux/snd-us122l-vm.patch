@@ -1,0 +1,11 @@
+--- linux-3.10/sound/usb/usx2y/us122l.c.orig	2013-06-30 18:13:29.000000000 -0400
++++ linux-3.10/sound/usb/usx2y/us122l.c	2013-07-27 23:38:15.103397735 -0400
+@@ -262,7 +262,7 @@
+ 	}
+ 
+ 	area->vm_ops = &usb_stream_hwdep_vm_ops;
+-	area->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
++	area->vm_flags |= VM_IO;
+ 	area->vm_private_data = us122l;
+ 	atomic_inc(&us122l->mmap_count);
+ out:
