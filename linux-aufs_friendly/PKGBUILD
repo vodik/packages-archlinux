@@ -1,12 +1,11 @@
 # Maintainer: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
-# Maintainer: Calimero <calimeroteknik@free.fr>
 
 # You can change pkgbase back to linux if you want to replace the one from [core].
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-aufs_friendly  # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.10
+pkgver=3.10.18
 pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
@@ -23,18 +22,18 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         'criu-no-expert.patch'
         '3.10.6-logitech-dj.patch'
         # patches exporting symbols for the aufs module (reason for this package)
-        'aufs3-base.patch' 'aufs3-standalone.patch')
+        'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         'd010ef17d3e577fd1bdcb6887f2b9836'
+         'e39b75595bf61d758087e1ddecd01a12'
          '480f8efb61ee244c52d881304a0ae14b'
          'f63bb7530df8e4f3deb5689fa0ea6d4e'
-         'eb14dcfd80c00852ef81ded6e826826a'
+         '622dbc890b896abf4a9bcfeb6d2db0c9'
          'f3def2cefdcbb954c21d8505d23cc83c'
          'd50c1ac47394e9aec637002ef3392bd1'
          '3ff40ca684cfe719723e627e2cef7cea'
-
          '498156cee91b664f3d3fd71637831cb0'
-         '288c2cbadc4af368e68ae445c661ac35')
+         '288c2cbadc4af368e68ae445c661ac35'
+         '79a19113b8bb9a2834949647f5be58c7')
 
 _kernelname=${pkgbase#linux}
 
@@ -62,6 +61,7 @@ prepare() {
   msg 'AUFS3 patches'
   patch -p1 -i "${srcdir}/aufs3-base.patch"
   patch -p1 -i "${srcdir}/aufs3-standalone.patch"
+  patch -p1 -i "${srcdir}/aufs3-mmap.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
@@ -116,7 +116,7 @@ build() {
 }
 
 _package() {
-  pkgdesc="The ${pkgbase} kernel and modules"
+  pkgdesc="The ${pkgbase/linux/Linux} kernel and modules"
   [ "${pkgbase}" = "linux" ] && groups=('base')
   depends=('coreutils' 'linux-firmware' 'kmod' 'mkinitcpio>=0.7')
   optdepends=('crda: to set the correct wireless channels of your country')
