@@ -5,7 +5,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-aufs_friendly  # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.18
+pkgver=3.10.19
 pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
@@ -24,7 +24,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # patches exporting symbols for the aufs module (reason for this package)
         'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         'e39b75595bf61d758087e1ddecd01a12'
+         'b7f932eecbbf5636ad69add480fa1573'
          '480f8efb61ee244c52d881304a0ae14b'
          'f63bb7530df8e4f3deb5689fa0ea6d4e'
          '622dbc890b896abf4a9bcfeb6d2db0c9'
