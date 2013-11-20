@@ -10,7 +10,7 @@ license=('BSD')
 url='http://gitorious.org/deltarpm/deltarpm'
 depends=('python-lxml' 'python2-lxml' 'rpm-org' 'yum')
 source=('Makefile.patch')
-md5sums=('b5aeff85406b10f3169a2a9866fec361')
+md5sums=('df5358c02139c1ced5dce5d23578461a')
 
 _gitroot='git://gitorious.org/deltarpm/deltarpm.git'
 _gitname='deltarpm'
