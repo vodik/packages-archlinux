@@ -5,7 +5,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-aufs_friendly  # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.25
+pkgver=3.10.27
 pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
@@ -20,20 +20,18 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         'linux.preset'
         'change-default-console-loglevel.patch'
         'criu-no-expert.patch'
-        '3.10.6-logitech-dj.patch'
         # patches exporting symbols for the aufs module (reason for this package)
         'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         'a216b82ba3670c979241a9ef9f1438e4'
+         '58009825fb7ca7ca7913ab68fbf8a8a7'
          '480f8efb61ee244c52d881304a0ae14b'
          'f63bb7530df8e4f3deb5689fa0ea6d4e'
          '622dbc890b896abf4a9bcfeb6d2db0c9'
          'f3def2cefdcbb954c21d8505d23cc83c'
          'd50c1ac47394e9aec637002ef3392bd1'
-         '3ff40ca684cfe719723e627e2cef7cea'
-         '498156cee91b664f3d3fd71637831cb0'
-         '288c2cbadc4af368e68ae445c661ac35'
-         '79a19113b8bb9a2834949647f5be58c7')
+         'c4486580053091a93813ae94e52596fa'
+         '1331085b502a7a84dea58fa424acd046'
+         'e44678431f64e41fea8de4a6ab4b89f9')
 
 _kernelname=${pkgbase#linux}
 
@@ -54,9 +52,6 @@ prepare() {
   # allow criu without expert option set
   # patch from fedora
   patch -Np1 -i "${srcdir}/criu-no-expert.patch"
-
-  # fix FS#35991 - [linux] 3.10.x renders Logitech Unified Receivers useless
-  patch -Np1 -i  "${srcdir}/3.10.6-logitech-dj.patch"
 
   msg 'AUFS3 patches'
   patch -p1 -i "${srcdir}/aufs3-base.patch"

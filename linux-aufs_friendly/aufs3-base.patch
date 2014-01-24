@@ -1,4 +1,4 @@
-aufs3.10 base patch
+aufs3.10.x base patch
 
 diff --git a/fs/file_table.c b/fs/file_table.c
 index 485dc0e..8db8096 100644
