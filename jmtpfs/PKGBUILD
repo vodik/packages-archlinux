@@ -1,0 +1,23 @@
+pkgname=jmtpfs
+pkgver=0.5
+pkgrel=1
+license=('unknown')
+pkgdesc="mtpfs with better support for Android"
+arch=('i686' 'x86_64')
+url="http://research.jacquette.com/jmtpfs-exchanging-files-between-android-devices-and-linux/"
+depends=('fuse' 'file' 'libmtp')
+makedepends=('gcc')
+source=("https://github.com/JasonFerrara/jmtpfs/archive/v$pkgver.tar.gz")
+md5sums=('501e51530d3c04d63e9ac96d794bf5c5')
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    sed -i '0,/#include/s/#include/#include <unistd.h>\n#include/' src/jmtpfs.cpp
+    ./configure CXXFLAGS=-lpthread --prefix=${pkgdir}/usr/
+    make
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    make install
+}
