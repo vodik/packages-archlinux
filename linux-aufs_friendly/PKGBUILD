@@ -1,12 +1,11 @@
-# Maintainer: Tobias Powalowski <tpowa@archlinux.org>
-# Maintainer: Thomas Baechler <thomas@archlinux.org>
+# Maintainer: John K. Luebs <jkluebs@luebsphoto.com>
 
 # You can change pkgbase back to linux if you want to replace the one from [core].
 #pkgbase=linux               # Build stock -ARCH kernel
-pkgbase=linux-aufs_friendly  # Build kernel with a different name
+pkgbase=linux-jkl-sp  # Build kernel with a different name
 _srcname=linux-3.10
 pkgver=3.10.28
-pkgrel=101
+pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -21,7 +20,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         'change-default-console-loglevel.patch'
         'criu-no-expert.patch'
         '0001-x86-x32-Correct-invalid-use-of-user-timespec-in-the-.patch'
-        # patches exporting symbols for the aufs module (reason for this package)
+        # patches exporting symbols for the aufs module
         'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
          '34514ae21798afcf2a8dc3c77f2714a6'
@@ -336,7 +335,7 @@ _package-docs() {
 }
 
 #hack for AUR
-pkgname="linux-aufs_friendly"
+pkgname="linux-jkl-sp"
 true && pkgname=("${pkgbase}" "${pkgbase}-headers" "${pkgbase}-docs")
 
 for _p in ${pkgname[@]}; do

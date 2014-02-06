@@ -1,14 +1,14 @@
-# mkinitcpio preset file for the 'linux-aufs_friendly' package
+# mkinitcpio preset file for the 'linux-jkl-sp' package
 
 ALL_config="/etc/mkinitcpio.conf"
-ALL_kver="/boot/vmlinuz-linux-aufs_friendly"
+ALL_kver="/boot/vmlinuz-linux-jkl-sp"
 
 PRESETS=('default' 'fallback')
 
 #default_config="/etc/mkinitcpio.conf"
-default_image="/boot/initramfs-linux-aufs_friendly.img"
+default_image="/boot/initramfs-linux-jkl-sp.img"
 #default_options=""
 
 #fallback_config="/etc/mkinitcpio.conf"
-fallback_image="/boot/initramfs-linux-aufs_friendly-fallback.img" 
+fallback_image="/boot/initramfs-linux-jkl-sp-fallback.img" 
 fallback_options="-S autodetect"
