@@ -73,4 +73,4 @@ echo = SOAPUI_BASE = $SOAPUI_BASE
 echo =
 echo ================================
 
-${JAVA_HOME}/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
+/opt/java7/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
