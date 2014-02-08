@@ -1,0 +1,58 @@
+# Contributor: Damien Guihal <dguihal@gmail.com>
+pkgname=soapui
+pkgver=4.6.4
+pkgrel=1
+pkgdesc="A graphical Java program for inspecting, invoking, monitoring, simulating/mocking and functional/load/compliance/surveillance testing of REST/WADL and SOAP/WSDL-based Web Services over HTTP."
+arch=('i686' 'x86_64')
+url="http://www.soapui.org/"
+license=('LGPLv2')
+groups=()
+depends=('java-runtime')
+makedepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+source=("http://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/SoapUI-$pkgver-linux-bin.tar.gz"
+        "http://freeapps.co.uk.s3.amazonaws.com/images/thumbnails/$pkgname.png"
+        "$pkgname.desktop"
+        "$pkgname")
+noextract=()
+#generate with 'makepkg -g'
+md5sums=('2c0089e852a3acd1b414a31e1e4a4246'
+         '3cc08aca62edb502fc53013edf69f640'
+         'f0e2fa73dd9a7c271e38c179b4e284a3'
+         '79265e191bf75f04daf5b44d64faeba7')
+sha1sums=('d89361dbf8e9f99f5f18d1dda08e20f05c5c32cb'
+          '9f12e2f0db63083a3fa4e5b6fdfd10c8dfd038c0'
+          '4ced7d28c3c5880db600bf4769fdb1a3dc3a6fce'
+          '0e5a18f43222644d42c984de55d98aba720e6169')
+
+build() {
+  cd ${srcdir}/SoapUI-$pkgver
+  #Suppression des fichiers bat de chez Redmond
+  #find . -name *.bat -exec rm -f {} \;
+  #Correction du bug jxplorer
+  #sed -i -e '/soapui.jxbrowser.disable=true/s/#//' bin/soapui.sh
+  sed -i -e 's/^java/${JAVA_HOME}\/bin\/java/' bin/soapui.sh
+}
+
+package() {
+  mkdir -p ${pkgdir}/usr/share/soapui
+  mkdir -p ${pkgdir}/usr/bin
+  cd ${srcdir}/SoapUI-$pkgver
+  cp -R * ${pkgdir}/usr/share/soapui
+
+  cd ${srcdir}
+  install $pkgname.desktop -m 0644 -D ${pkgdir}/usr/share/applications/$pkgname.desktop
+  install $pkgname.png -m 0644 -D ${pkgdir}/usr/share/icons/hicolor/48x48/apps/$pkgname.png
+  install $pkgname -m 0755 -D ${pkgdir}/usr/bin/soapui
+  chmod 0755 ${pkgdir}/usr/share/soapui/bin/soapui.sh
+
+  cd ${pkgdir}/usr/share/soapui
+  ln -sf bin/starter-page.html .
+}
+
+# vim:set ts=2 sw=2 et:
+
