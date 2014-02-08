@@ -7,19 +7,19 @@ _kernel=3.10
 #_kernver="${_kernel}-ARCH"   # for modified core kernel
 #depends=('aufs_friendly')
 
-_kernver="${_kernel}-aufs_friendly"   # for aufs_friendly branded kernel
-depends=('linux-aufs_friendly')
+_kernver="${_kernel}-jkl-sp"   # for aufs_friendly branded kernel
+depends=('linux-jkl-sp')
 
 
-pkgname=aufs3
-pkgver=3.10_20140120
+pkgname=aufs3-jkl-sp
+pkgver=3.10_20140127
 pkgrel=1
 pkgdesc="Another UnionFS implementation"
 arch=('i686' 'x86_64')
 url="http://aufs.sourceforge.net/"
 license=('GPL2')
 replaces=('aufs' 'aufs2')
-conflicts=('aufs2')
+conflicts=('aufs2' 'aufs3')
 makedepends=('git')
 install='aufs3.install'
 options=('!makeflags' '!strip')
