@@ -4,7 +4,7 @@
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-jkl-sp  # Build kernel with a different name
 _srcname=linux-3.10
-pkgver=3.10.30
+pkgver=3.10.31
 pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
@@ -22,7 +22,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # patches exporting symbols for the aufs module
         'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
 md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         '92d1c88be148a9b3683b28902ffd055b'
+         '028bec37021df6a2d73b6768a60963e1'
          '480f8efb61ee244c52d881304a0ae14b'
          'd91c22388efd52467a60e4fe4bcf4a3c'
          'bb0181236334233a7a88c2dbfa28ae94'
