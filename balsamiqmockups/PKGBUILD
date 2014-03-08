@@ -2,7 +2,7 @@
 # Have any improvements? Please change this PKGBUILD and send your code to me.
 
 pkgname='balsamiqmockups'
-pkgver=2.2.17
+pkgver=2.2.19
 _releasedate="2013.05.21"
 license=('custom')
 pkgrel=1
