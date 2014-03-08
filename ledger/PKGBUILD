@@ -1,0 +1,36 @@
+# Maintainer:  TDY <tdy@archlinux.info>
+# Contributor: Nathan Jones <nathanj@insightbb.com>
+
+# TODO: - Make package not install in /usr/lib64
+#       - Add dependicies for libedit
+pkgname=ledger
+pkgver=3.0
+pkgrel=2
+pkgdesc="A double-entry accounting system with a command-line reporting interface"
+arch=('i686' 'x86_64')
+url="http://ledger-cli.org/"
+license=('BSD')
+depends=('boost>=1.35' 'expat>=2.0.1' 'gmp>=4.2.2' 'pcre>7.7')
+makedepends=('git')
+options=('!libtool')
+install=$pkgname.install
+source=(https://github.com/ledger/$pkgname/archive/v$pkgver.tar.gz
+        http://ledger-cli.org/2.6/ledger.pdf)
+sha256sums=('4c3ea86488676597decad14b5a24c5defa4b4ad0c154c90e11cc1c5c7f130442'
+            'c108584a435c6306e8f80e15afc9095c0b04a700a7a09e603b97816681c76883')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  git clone https://github.com/ledger/utfcpp.git lib/utfcpp # submodule excluded
+  ./acprep --prefix=/usr
+  cmake .
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir" install
+  install -Dm644 doc/LICENSE "$pkgdir/usr/share/licenses/ledger/LICENSE"
+  install -Dm644 ../$pkgname.pdf "$pkgdir/usr/share/doc/$pkgname/$pkgname.pdf"
+}
+
+# vim:set ts=2 sw=2 et:
