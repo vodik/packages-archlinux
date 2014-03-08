@@ -3,7 +3,7 @@
 
 pkgname=git-annex-standalone
 pkgver=5.20140306
-pkgrel=1
+pkgrel=2
 pkgdesc='Standalone precompiled version of git-annex bundled with libs and utils, batteries included.'
 arch=('i686' 'x86_64')
 url="http://git-annex.branchable.com/"
@@ -37,6 +37,8 @@ package() {
 
   patch $pkgdir/opt/git-annex.linux/runshell $srcdir/runshell.patch
 
+  # remove git wrapper script, since this causes undesirable recursion
+  rm $pkgdir/opt/git-annex.linux/git
   for file in ${_rmbin[@]} ; do
     msg "  Removing $file executable from package..."
     rm $pkgdir/opt/git-annex.linux/bin/$file || true # curl (and lsof) does not exist in 64-bit build -.-"
