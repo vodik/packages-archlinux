@@ -1,0 +1,28 @@
+# Maintainer: Dominik Heidler <dheidler@gmail.com>
+
+pkgname=multibit
+pkgver=0.5.17
+pkgrel=100
+pkgdesc="A lightweight Bitcoin desktop client powered by the BitCoinJ library."
+arch=(any)
+license=('GPL')
+url="https://multibit.org/"
+depends=('jre=7.51')
+noextract=('multibit-exe.jar')
+source=("https://multibit.org/releases/multibit-$pkgver/multibit-exe.jar"
+		multibit multibit.desktop multibit.png)
+md5sums=('28cc95436195226a4caa556c3ae5d8ed'
+         '231165155564efaa5c0900b126e00149'
+         '30e725c591e2709c9638b42ca763ecf7'
+         '41b492c2898448f0199129fcb1178aac')
+
+package() {
+	cd "$srcdir"
+
+	install -D -m755 "multibit"         "${pkgdir}/usr/bin/multibit"
+	install -D -m644 "multibit-exe.jar" "${pkgdir}/usr/share/java/multibit/multibit-exe.jar"
+
+	# Desktop launcher with icon
+	install -D -m644 "multibit.desktop" "${pkgdir}/usr/share/applications/multibit.desktop"
+	install -D -m644 "multibit.png"     "${pkgdir}/usr/share/pixmaps/multibit.png"
+}

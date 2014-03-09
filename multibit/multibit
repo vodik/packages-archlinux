@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -x "/opt/java7/bin/java" ]; then
+    PATH="/opt/java7/bin:$PATH"
+    export JAVA_HOME=/opt/java7
+fi
+
+exec "$JAVA_HOME/bin/java" -Dawt.useSystemAAFontSettings=lcd -Dswing.aatext=true -jar /usr/share/java/multibit/multibit-exe.jar
