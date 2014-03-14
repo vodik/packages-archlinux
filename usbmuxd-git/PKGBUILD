@@ -1,55 +1,49 @@
-# Maintainer: sebikul <sebikul@gmail.com>
-# Contributor: Adam Eberlin < ae at adameberlin dot com >
+# Maintainer: Alex Brinister <alex_brinister at yahoo dot com>
 
 pkgname=usbmuxd-git
-pkgver=20120502
+pkgver=v1.0.8.64.g13b7851
 pkgrel=1
 pkgdesc="A USB multiplexing daemon."
-url="http://pims.selfip.net/git/usbmuxd/"
+url="http://sukimashita.com/"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('glib2' 'libxml2')
-makedepends=('gcc' 'git' 'make' 'cmake' 'swig')
-install=usbmuxd-git.install
+depends=('glib2' 'libxml2' 'libimobiledevice-git')
+makedepends=('git')
 provides=('usbmuxd')
 conflicts=('usbmuxd')
-
-_gitroot="http://git.sukimashita.com/usbmuxd.git"
+install='usbmuxd.install'
 _gitname="usbmuxd"
+source=("git://git.sukimashita.com/${_gitname}.git"
+				"39-usbmuxd.rules"
+				"usbmuxd.service")
+sha512sums=('SKIP'
+            'dc5af2442584e51ddd5828dc7f0d9d670da7026eedf1a3694f59a07741bd9280b90932c73b6ee8e95b993304c4ca3b787119f23125a232fbc5527c44dde64641'
+            '9771b422e9b48e11a0c2ecaafda06ea9acee651afd4f7e7589e9704d60bd9eb014f6b737d1e279735225f68d910183c698949ee153275e0873940dae00911210')
 
+pkgver() {
+	cd $srcdir/$_gitname
+	local ver="$(git describe --long)"
+	printf "%s" "${ver//-/.}"
+}
 build() {
-
-    cd ${srcdir}
-    msg "Connecting to GIT server...."
-
-    if [ -d ${srcdir}/$_gitname ] ; then
-	cd $_gitname && git pull origin
-	msg "Local repository updated."
-    else
-	git clone $_gitroot $_gitname
-    fi
-
-    msg "GIT checkout done or server timeout"
-
-    msg "Removing old build directory..."
-    rm -Irf ${srcdir}/$_gitname-build
-
-    msg "Creating new build directory..."
-    cp -r ${srcdir}/$_gitname ${srcdir}/$_gitname-build
-
-    cd ${srcdir}/$_gitname-build
-
-    #msg "Applying patches..."
-
-    msg "Starting make..."
-
-    cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DLIB_SUFFIX=""
-
+	cd ${srcdir}/$_gitname
+    ./autogen.sh --prefix=/usr
     make
-    make DESTDIR=${pkgdir} install || return 1
 }
 
-package () {
-    cd "${srcdir}/$_gitname-build"
-    make DESTDIR="${pkgdir}" install
+package() {
+	cd ${srcdir}/$_gitname
+
+	make DESTDIR=${pkgdir} install
+	
+	mkdir -p ${pkgdir}/usr/lib
+	# fix udev dir being hardcoded
+	mv -v ${pkgdir}/lib/udev ${pkgdir}/usr/lib/
+	rmdir ${pkgdir}/lib
+	# install systemd service files
+	install -D -m644 ${srcdir}/usbmuxd.service ${pkgdir}/usr/lib/systemd/system/usbmuxd.service
+	# use udev rule that works with systemd
+	install -m644 ${srcdir}/39-usbmuxd.rules ${pkgdir}/usr/lib/udev/rules.d/
 }
+
+# vim:set ts=2 sw=2:
