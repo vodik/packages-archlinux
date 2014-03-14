@@ -1,0 +1,107 @@
+diff --git a/src/fw/smbios.c b/src/fw/smbios.c
+index 55c662a..5b76468 100644
+--- a/src/fw/smbios.c
++++ b/src/fw/smbios.c
+@@ -251,6 +251,41 @@ smbios_init_type_1(void *start)
+     return end;
+ }
+ 
++/* Type 2 -- Base Board */
++static void *
++smbios_init_type_2(void *start)
++{
++    struct smbios_type_2 *p = (struct smbios_type_2 *)start;
++    char *end = (char *)start + sizeof(struct smbios_type_2);
++    size_t size;
++    int str_index = 0;
++
++    p->header.type = 2;
++    p->header.length = sizeof(struct smbios_type_2);
++    p->header.handle = 0x200;
++
++    load_str_field_with_default(2, manufacturer_str, BUILD_APPNAME);
++    load_str_field_or_skip(2, product_str);
++    load_str_field_or_skip(2, version_str);
++    load_str_field_or_skip(2, serial_number_str);
++    load_str_field_or_skip(2, asset_tag_number_str);
++    load_str_field_or_skip(2, location_str);
++
++    set_field_with_default(2, feature_flags, 0x01); /* Motherboard */
++    set_field_with_default(2, chassis_handle, 0x300); /* T3 System Enclosure */
++    set_field_with_default(2, board_type, 0x0a); /* Motherboard */
++    set_field_with_default(2, contained_element_count, 0);
++
++    *end = 0;
++    end++;
++    if (!str_index) {
++        *end = 0;
++        end++;
++    }
++
++    return end;
++}
++
+ /* Type 3 -- System Enclosure */
+ static void *
+ smbios_init_type_3(void *start)
+@@ -417,6 +452,12 @@ smbios_init_type_17(void *start, u32 size_mb, int instance)
+     set_field_with_default(17, memory_type, 0x07); /* RAM */
+     set_field_with_default(17, type_detail, 0);
+ 
++    set_field_with_default(17, speed, 0); /* unknown */
++    load_str_field_or_skip(17, manufacturer_str);
++    load_str_field_or_skip(17, serial_number_str);
++    load_str_field_or_skip(17, asset_tag_number_str);
++    load_str_field_or_skip(17, part_number_str);
++
+     *end = 0;
+     end++;
+     if (!str_index) {
+@@ -540,6 +581,7 @@ smbios_setup(void)
+ 
+     add_struct(0, p);
+     add_struct(1, p);
++    add_struct(2, p);
+     add_struct(3, p);
+ 
+     int cpu_num;
+diff --git a/src/std/smbios.h b/src/std/smbios.h
+index 0513716..86a4c57 100644
+--- a/src/std/smbios.h
++++ b/src/std/smbios.h
+@@ -59,6 +59,22 @@ struct smbios_type_1 {
+     u8 family_str;
+ } PACKED;
+ 
++/* SMBIOS type 2 - Base Board */
++struct smbios_type_2 {
++    struct smbios_structure_header header;
++    u8 manufacturer_str;
++    u8 product_str;
++    u8 version_str;
++    u8 serial_number_str;
++    u8 asset_tag_number_str;
++    u8 feature_flags;
++    u8 location_str;
++    u16 chassis_handle;
++    u8 board_type;
++    u8 contained_element_count;
++    // contained elements follow
++} PACKED;
++
+ /* SMBIOS type 3 - System Enclosure (v2.3) */
+ struct smbios_type_3 {
+     struct smbios_structure_header header;
+@@ -127,6 +143,12 @@ struct smbios_type_17 {
+     u8 bank_locator_str;
+     u8 memory_type;
+     u16 type_detail;
++    /* v2.3 fields: */
++    u16 speed;
++    u8 manufacturer_str;
++    u8 serial_number_str;
++    u8 asset_tag_number_str;
++    u8 part_number_str;
+ } PACKED;
+ 
+ /* SMBIOS type 19 - Memory Array Mapped Address */
