@@ -1,4 +1,5 @@
-# Maintainer: Daniel YC Lin <dlin.tw gmail>
+# Maintainer: John K Luebs <jkl johnluebs.com>
+# Contributor: Daniel YC Lin <dlin.tw gmail>
 # Contributor: Alexander Rødseth <rodseth@gmail.com>
 # Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 # Contributor: Rémy Oudompheng  <remy@archlinux.org>
@@ -7,8 +8,10 @@
 # Contributor: Christian Himpel <chressie@gmail.com>
 # Contributor: Mike Rosset <mike.rosset@gmail.com>
 
+# Report problems on AUR, or github: https://github.com/jkl1337/packages-archlinux
+
 pkgname=go-hg
-pkgver=18506.490e
+pkgver=19479.cfbe
 pkgrel=1
 pkgdesc='Google Go compiler support multi-platforms(hg tip)'
 # ref valid platforms http://golang.org/doc/install/source#environment
@@ -162,7 +165,7 @@ package() {
 
   # Clean up
   for platform in $_platforms ; do
-    if [ $CARCH = x86  -a $platform = linux_386 ] ; then
+    if [ $CARCH = i686  -a $platform = linux_386 ] ; then
       continue
     elif [ $CARCH = x86_64  -a $platform = linux_amd64 ] ; then
       continue
