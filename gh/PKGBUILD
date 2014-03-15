@@ -1,0 +1,42 @@
+# $Id$
+# Maintainer: John K. Luebs <jkl@johnluebs.com>
+#
+# NOTE: To request changes to this package, please submit a pull request
+#       to the GitHub repository at https://github.com/jkl1337/arch-pkg
+#
+
+pkgname=gh
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Fast GitHub command line client'
+arch=(i686 x86_64)
+url="https://github.com/jingweno/gh"
+license=('MIT')
+optdepends=('git: core git commands')
+makedepends=('go')
+# don't strip binaries! A sha1 is used to check binary consistency.
+options=('!strip')
+source=("https://github.com/jingweno/gh/archive/v${pkgver}.tar.gz")
+sha1sums=('89878b275a2d922039394703cfecdc1fecd8665a')
+
+build() {
+  # shouldn't be necessary, but safer
+  export GOPATH="$srcdir"
+  cd $srcdir/$pkgname-$pkgver
+  script/make
+}
+
+package () {
+  cd $srcdir/$pkgname-$pkgver
+
+  install -D -m 755 gh "${pkgdir}/usr/bin/gh"
+
+  install -D -m644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  install -D -m 644 etc/gh.bash_completion.sh "${pkgdir}/usr/share/bash-completion/completions/gh"
+  install -d -m 755 "${pkgdir}/usr/share/gh/completion"
+  install -m 644 etc/gh.bash_completion.sh "${pkgdir}/usr/share/gh/completion"
+  install -m 644 etc/gh.zsh_completion "${pkgdir}/usr/share/gh/completion"
+}
+
+# vim:set ts=2 sw=2 et:
