@@ -13,6 +13,15 @@ pkgver=1.2.1
 pkgrel=2
 epoch=2
 pkgdesc='Compiler and tools for the Go programming language from Google'
+# ref valid platforms http://golang.org/doc/install/source#environment
+_platforms="linux_arm"
+if [ "$CARCH" == 'x86_64' ]; then
+    _platforms="linux_amd64 $_platforms"
+    export GOARCH=amd64
+elif [ "$CARCH" == 'i686' ]; then
+    _platforms="linux_386 $_platforms"
+fi
+_tools="vet cover"
 arch=('x86_64' 'i686')
 url='http://golang.org/'
 license=('custom')
@@ -28,7 +37,7 @@ md5sums=('SKIP')
 
 build() {
   export GOROOT="$srcdir/$pkgname-$pkgver"
-  cd "$GOROOT/src"
+  cd $GOROOT/src
 
   export GOROOT_FINAL=/usr/lib/go
   export GOPATH="$srcdir/"
@@ -40,32 +49,22 @@ build() {
   #
   export GO386=387
 
-  # Enable ARM crosscompilation for linux
-  export GOOS=linux
-  export GOARCH=arm
-
-  bash make.bash
-
-  # Crosscompilation for various platforms (including linux)
-  for os in linux; do # darwin freebsd windows; do
-    for arch in amd64 386; do
-      export GOOS="$os"
-      export GOARCH="$arch"
-      bash make.bash --no-clean
-    done
-  done
-
-  GOOS=linux
-  case "$CARCH" in
-    x86_64) GOARCH=amd64 ;;
-    i686) GOARCH=386 ;;
-  esac
-
-  $GOROOT/bin/go get -d code.google.com/p/go.tools/cmd/godoc
-  $GOROOT/bin/go build -o $srcdir/godoc code.google.com/p/go.tools/cmd/godoc
-  for tool in vet cover; do
-    $GOROOT/bin/go get -d code.google.com/p/go.tools/cmd/${tool}
-    $GOROOT/bin/go build -o $GOROOT/pkg/tool/${GOOS}_${GOARCH}/${tool} code.google.com/p/go.tools/cmd/${tool}
+  local n=0
+  # export GOARM=5 # if without FPU
+  for platform in $_platforms ; do
+    n=$((n+1))
+    export GOOS=${platform%%_*}
+    export GOARCH=${platform##*_}
+    msg2 "building $GOOS $GOARCH"
+    bash make.bash --no-clean
+    if [ $n -eq 1 ] ; then
+      $GOROOT/bin/go get -d code.google.com/p/go.tools/cmd/godoc
+      $GOROOT/bin/go build -o $srcdir/godoc code.google.com/p/go.tools/cmd/godoc
+      for tool in $_tools ; do
+        $GOROOT/bin/go get -d code.google.com/p/go.tools/cmd/$tool
+        $GOROOT/bin/go build -o $GOROOT/pkg/tool/$platform/$tool code.google.com/p/go.tools/cmd/$tool
+      done
+    fi
   done
 }
 
