@@ -1,0 +1,23 @@
+# Maintainer:  John Luebs <jkl @ john luebs com>
+
+pkgname=ttf-ms-tahoma
+pkgver=5.26
+pkgrel=1
+pkgdesc="Tahoma and Tahoma Bold fonts from Windows 8"
+arch=(any)
+url=http://www.microsoft.com/typography/fonts/family.aspx?FID=19
+license=(unknown)
+depends=(fontconfig)
+provides=(ttf-tahoma)
+conflicts=(ttf-tahoma ttf-microsoft-tahoma)
+install=ttf.install
+source=(tahoma.ttf
+        tahomabd.ttf)
+sha256sums=('d86087acbb3884ca0b6617c8216a2d06520623c68023f260730b21cde64cb88f'
+            '7661af829d63433968616a78a24368323f980f775fc8c03229b1744040712714')
+
+package() {
+  cd "$srcdir"
+  install -Dm644 tahoma.ttf "$pkgdir/usr/share/fonts/TTF/tahoma.ttf"
+  install -Dm644 tahomabd.ttf "$pkgdir/usr/share/fonts/TTF/tahomabd.ttf"
+}
