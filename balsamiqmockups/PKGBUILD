@@ -1,34 +1,37 @@
-# Maintainer: tang0th67
-# Have any improvements? Please change this PKGBUILD and send your code to me.
+# Maintainer: John K. Luebs <jkl@johnluebs.com>
+# Contributor: tang0th67
+
+# I maintain this on github, feel free to submit a pull request to
+# https://github.com/jkl1337/packages-archlinux.git
 
 pkgname='balsamiqmockups'
-pkgver=2.2.19
-_releasedate="2013.05.21"
+pkgver=2.2.21
 license=('custom')
 pkgrel=1
 arch=('i686' 'x86_64')
 pkgdesc="The Adobe Air based Mockup client. Not free or open source, there is a 7 day free trial."
 url=('http://balsamiq.com/products/mockups')
 source=("http://builds.balsamiq.com/b/mockups-desktop/MockupsForDesktop.air" 'balsamiqmockups.desktop')
-md5sums=('3ce8eb34569e8ac9c236085a4b598e9e'
-         'dc0a099ac9c065cb5675ab5605a61215')
+sha1sums=('ffad31a8978f53b8e12ce6289a5e8510cba6440f'
+          '3ae15ae952b33f33a0c744feed1b14f29a87f205')
 noextract=("MockupsForDesktop.air")
-depends=('bash' 'adobe-air-sdk' 'unzip')
+depends=(adobe-air-sdk)
+makedepends=(unzip)
 conflicts=('balsamiq-mockups')
 
 package() {
-  cd $srcdir
-  mkdir $pkgdir/opt/
-  mkdir $pkgdir/opt/airapps
-  mkdir $pkgdir/usr/
-  mkdir $pkgdir/usr/bin
-  install $srcdir/MockupsForDesktop.air  $pkgdir/opt/airapps/balsamiqmockups.air
-  mkdir $pkgdir/opt/airapps/balsamiqmockups
-  cd $pkgdir/opt/airapps/balsamiqmockups
+  cd "$srcdir"
+  mkdir "$pkgdir"/opt/
+  mkdir "$pkgdir"/opt/airapps
+  mkdir "$pkgdir"/usr/
+  mkdir "$pkgdir"/usr/bin
+  install "$srcdir"/MockupsForDesktop.air  "$pkgdir"/opt/airapps/balsamiqmockups.air
+  mkdir "$pkgdir"/opt/airapps/balsamiqmockups
+  cd "$pkgdir"/opt/airapps/balsamiqmockups
   unzip ../balsamiqmockups.air
-  echo "#!/bin/bash" >> $pkgdir/usr/bin/balsamiqmockups
-  echo "/opt/adobe-air-sdk/bin/adl -nodebug /opt/airapps/balsamiqmockups/META-INF/AIR/application.xml /opt/airapps/balsamiqmockups/" >> $pkgdir/usr/bin/balsamiqmockups
-  chmod +x $pkgdir/usr/bin/balsamiqmockups
-  mkdir -p $pkgdir/usr/share/applications
-  install $srcdir/${pkgname}.desktop $pkgdir/usr/share/applications/ 
+  echo "#!/bin/bash" >> "$pkgdir"/usr/bin/balsamiqmockups
+  echo "/opt/adobe-air-sdk/bin/adl -nodebug /opt/airapps/balsamiqmockups/META-INF/AIR/application.xml /opt/airapps/balsamiqmockups/" >> "$pkgdir"/usr/bin/balsamiqmockups
+  chmod +x "$pkgdir"/usr/bin/balsamiqmockups
+  mkdir -p "$pkgdir"/usr/share/applications
+  install "$srcdir"/${pkgname}.desktop "$pkgdir"/usr/share/applications/ 
 }
