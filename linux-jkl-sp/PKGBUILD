@@ -3,8 +3,8 @@
 # You can change pkgbase back to linux if you want to replace the one from [core].
 #pkgbase=linux               # Build stock -ARCH kernel
 pkgbase=linux-jkl-sp  # Build kernel with a different name
-_srcname=linux-3.10
-pkgver=3.10.33
+_srcname=linux-3.12
+pkgver=3.12.15
 pkgrel=100
 arch=('i686' 'x86_64')
 url="http://www.kernel.org/"
@@ -18,19 +18,14 @@ source=("http://www.kernel.org/pub/linux/kernel/v3.x/${_srcname}.tar.xz"
         # standard config files for mkinitcpio ramdisk
         'linux.preset'
         'change-default-console-loglevel.patch'
-        'criu-no-expert.patch'
-        # patches exporting symbols for the aufs module
-        'aufs3-base.patch' 'aufs3-standalone.patch' 'aufs3-mmap.patch')
-md5sums=('4f25cd5bec5f8d5a7d935b3f2ccb8481'
-         '2a453acf41c3f28122a7cabd3d4acbf5'
+        'criu-no-expert.patch')
+md5sums=('cc6ee608854e0da4b64f6c1ff8b6398c'
+         '5c7e75bb6727bc229df1e8233e4fa472'
          '480f8efb61ee244c52d881304a0ae14b'
-         'd91c22388efd52467a60e4fe4bcf4a3c'
+         'd34e6e675ebd6f2fae4593a9501605a7'
          'bb0181236334233a7a88c2dbfa28ae94'
-         'f3def2cefdcbb954c21d8505d23cc83c'
-         'd50c1ac47394e9aec637002ef3392bd1'
-         'c4486580053091a93813ae94e52596fa'
-         '1331085b502a7a84dea58fa424acd046'
-         'e44678431f64e41fea8de4a6ab4b89f9')
+         '98beb36f9b8cf16e58de2483ea9985e3'
+         'd50c1ac47394e9aec637002ef3392bd1')
 
 _kernelname=${pkgbase#linux}
 
@@ -51,11 +46,6 @@ prepare() {
   # allow criu without expert option set
   # patch from fedora
   patch -Np1 -i "${srcdir}/criu-no-expert.patch"
-
-  msg 'AUFS3 patches'
-  patch -p1 -i "${srcdir}/aufs3-base.patch"
-  patch -p1 -i "${srcdir}/aufs3-standalone.patch"
-  patch -p1 -i "${srcdir}/aufs3-mmap.patch"
 
   if [ "${CARCH}" = "x86_64" ]; then
     cat "${srcdir}/config.x86_64" > ./.config
@@ -102,7 +92,7 @@ build() {
   ####################
   # stop here
   # this is useful to configure the kernel
-  #msg "Stopping build"; return 1
+  # msg "Stopping build"; return 1
   ####################
 
   # build!
