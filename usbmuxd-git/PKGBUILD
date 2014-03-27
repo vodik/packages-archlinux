@@ -1,13 +1,13 @@
 # Maintainer: Alex Brinister <alex_brinister at yahoo dot com>
 
 pkgname=usbmuxd-git
-pkgver=v1.0.8.64.g13b7851
+pkgver=v1.0.8.71.g8ba560f
 pkgrel=1
 pkgdesc="A USB multiplexing daemon."
 url="http://sukimashita.com/"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('glib2' 'libxml2' 'libimobiledevice-git')
+depends=('glib2' 'libxml2' 'libimobiledevice>=1.1.6')
 makedepends=('git')
 provides=('usbmuxd')
 conflicts=('usbmuxd')
