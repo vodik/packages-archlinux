@@ -1,0 +1,25 @@
+# $Id: PKGBUILD 187073 2013-06-03 11:16:58Z allan $
+# Maintainer : Ionut Biru <ibiru@archlinux.org>
+# Contributor: Gabriel Martinez < reitaka at gmail dot com >
+
+pkgname=libusbmuxd
+pkgver=1.0.9
+pkgrel=1
+pkgdesc="USB Multiplex Daemon interface library"
+url="http://www.libimobiledevice.org/"
+arch=('i686' 'x86_64')
+license=('LGPL2.1')
+depends=('libplist')
+source=(http://libimobiledevice.org/downloads/$pkgname-$pkgver.tar.bz2)
+
+build() {
+  cd ${pkgname}-${pkgver}
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR="${pkgdir}" install
+}
+md5sums=('3f1d4bd0c0a1a4d7bf96219e117ec499')
