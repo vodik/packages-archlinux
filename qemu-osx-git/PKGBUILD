@@ -1,10 +1,11 @@
-# Maintainer:  Devin Cofer <ranguvar{AT]archlinux[DOT}us>
+# Maintainer: John K Luebs <jkl at johnluebs dot com>
+# Contributor  Devin Cofer <ranguvar{AT]archlinux[DOT}us>
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Maintainer: Frederic Bezies <fredbezies@gmail.com>
 
 pkgname=qemu-git-osx
 _gitname=qemu
-pkgver=2.0.r30850.g46eef33
+pkgver=2.0.r31959.gb3706fa
 pkgrel=1
 pkgdesc="A generic and open source processor emulator which achieves a good emulation speed by using dynamic translation. Git version."
 arch=('i686' 'x86_64')
@@ -16,7 +17,7 @@ depends=('pixman' 'libjpeg' 'libpng' 'sdl' 'alsa-lib' 'nss' 'glib2'
          'libiscsi' 'libcacard' 'spice' 'seabios-osx-git')
 makedepends=('git' 'texi2html' 'perl' 'python2' 'dtc' 'spice-protocol')
 
-optdepends=('ovmf-svn: UEFI Firmware (OVMF) with Secure Boot Support - for Virtual Machines (QEMU)')
+optdepends=('ovmf-bin: UEFI Firmware (OVMF) with Secure Boot Support - for Virtual Machines (QEMU)')
 conflicts=('qemu' 'kvm' 'kvm-git' 'qemu-spice' 'libcacard')
 provides=('qemu' 'qemu-kvm' 'qemu-spice' 'libcacard')
 backup=('etc/qemu/target-x86_64.conf')
@@ -48,12 +49,12 @@ build()
   	export ARFLAGS="rv"
   	# http://permalink.gmane.org/gmane.comp.emulators.qemu/238740
   	# gtk gui breaks keymappings at the moment
-
  	./configure --prefix=/usr --sysconfdir=/etc --audio-drv-list='pa alsa sdl' \
               --python=/usr/bin/python2 --smbd=/usr/bin/smbd \
               --enable-docs --libexecdir=/usr/lib/qemu \
               --disable-gtk --enable-linux-aio --enable-seccomp \
-              --enable-spice --localstatedir=/var --disable-werror
+              --enable-spice --localstatedir=/var --disable-werror \
+              --enable-tpm
   	make V=99
 }
 
