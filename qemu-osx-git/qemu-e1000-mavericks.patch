@@ -1,0 +1,13 @@
+diff --git a/hw/net/e1000.c b/hw/net/e1000.c
+index 8387443..26b949d 100644
+--- a/hw/net/e1000.c
++++ b/hw/net/e1000.c
+@@ -75,7 +75,7 @@ static int debugflags = DBGBIT(TXERR) | DBGBIT(GENERAL);
+  *  E1000_DEV_ID_82544GC_COPPER appears to work; not well tested
+  *  Others never tested
+  */
+-enum { E1000_DEVID = E1000_DEV_ID_82540EM };
++enum { E1000_DEVID = E1000_DEV_ID_82544GC_COPPER };
+ 
+ /*
+  * May need to specify additional MAC-to-PHY entries --

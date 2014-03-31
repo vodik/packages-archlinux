@@ -6,7 +6,7 @@
 pkgname=qemu-git-osx
 _gitname=qemu
 pkgver=2.0.r31959.gb3706fa
-pkgrel=1
+pkgrel=2
 pkgdesc="A generic and open source processor emulator which achieves a good emulation speed by using dynamic translation. Git version."
 arch=('i686' 'x86_64')
 license=('GPL2' 'LGPL2')
@@ -14,7 +14,7 @@ url="http://wiki.qemu.org/Index.html"
 depends=('pixman' 'libjpeg' 'libpng' 'sdl' 'alsa-lib' 'nss' 'glib2'
          'gnutls>=2.4.1' 'bluez-libs' 'vde2' 'util-linux' 'curl' 'libsasl'
          'libgl' 'libpulse' 'libcap-ng' 'libaio' 'libseccomp'
-         'libiscsi' 'libcacard' 'spice' 'seabios-osx-git')
+         'libiscsi' 'spice' 'seabios-osx-git')
 makedepends=('git' 'texi2html' 'perl' 'python2' 'dtc' 'spice-protocol')
 
 optdepends=('ovmf-bin: UEFI Firmware (OVMF) with Secure Boot Support - for Virtual Machines (QEMU)')
@@ -23,10 +23,12 @@ provides=('qemu' 'qemu-kvm' 'qemu-spice' 'libcacard')
 backup=('etc/qemu/target-x86_64.conf')
 source=('git://git.qemu.org/qemu.git'
         'http://www.contrib.andrew.cmu.edu/~somlo/OSXKVM/qemu-e1000-20131222.patch'
+        'qemu-e1000-mavericks.patch'
         '65-kvm.rules'
         'qemu.install')
 sha256sums=('SKIP'
             'f39dc1f2d4a0a3ae4449134dd0d2a0bc1a648a7b4e0a086dda03eaf1250d87d5'
+            '526ffe5e1fd952b4b9bd7ba9188327aa0842ca9362aa6adeea5e9d7450dcaa74'
             '9c8a15c34461a9481a34ca9e0ab4ae3825eabe8fd863227f2445325413cd755c'
             '537eb07baa44bd846a01311f538fa89540e40e6360b8a794fbfa0dea4ccaa955')
 install='qemu.install'
