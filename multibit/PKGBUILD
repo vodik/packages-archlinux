@@ -2,12 +2,12 @@
 
 pkgname=multibit
 pkgver=0.5.17
-pkgrel=100
+pkgrel=101
 pkgdesc="A lightweight Bitcoin desktop client powered by the BitCoinJ library."
 arch=(any)
 license=('GPL')
 url="https://multibit.org/"
-depends=('jre=7.51')
+depends=('jre=7.55')
 noextract=('multibit-exe.jar')
 source=("https://multibit.org/releases/multibit-$pkgver/multibit-exe.jar"
 		multibit multibit.desktop multibit.png)
