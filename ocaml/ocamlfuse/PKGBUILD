@@ -2,7 +2,7 @@
 
 pkgname=ocamlfuse
 pkgver=2.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="An ocaml binding for fuse."
 arch=('x86_64' 'i686')
 url="http://sourceforge.net/apps/mediawiki/ocamlfuse"
@@ -15,9 +15,8 @@ options=(staticlibs)
 build() {
   cd "$srcdir/$pkgname-$pkgver-cvs"
 
-  #make -C lib INCDIRS="/usr/lib/ocaml/stublibs /usr/lib/ocaml/camlidl"
-  make -C lib INCDIRS=/usr/lib/ocaml/camlidl
-
+  cd lib
+  make INCDIRS=/usr/lib/ocaml/camlidl
 }
 
 package() {
