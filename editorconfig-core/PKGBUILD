@@ -1,0 +1,30 @@
+# Maintainer: John K Luebs <jkl at johnluebs dot com>
+pkgname=editorconfig-core
+_pkgname=editorconfig-core-c
+pkgver=0.11.5
+pkgrel=1
+pkgdesc="EditorConfig core code written in C (for use by plugins supporting EditorConfig parsing)"
+arch=('i686' 'x86_64')
+url="https://github.com/editorconfig/${_pkgname}/downloads"
+license=('BSD')
+depends=('glibc')
+makedepends=('cmake')
+changelog=CHANGELOG
+source=("https://github.com/editorconfig/editorconfig-core-c/archive/v${pkgver}.tar.gz")
+md5sums=('37593dbfd3557173233c27e76b973bb4')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  msg "Starting make..."
+  cmake -D CMAKE_INSTALL_PREFIX=/usr .
+  make
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+
+  msg "Including license..."
+  install -v -D -m 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
