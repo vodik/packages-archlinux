@@ -1,8 +1,12 @@
-# Maintainer: Hugo Osvaldo Barrera <hugo@osvaldobarrera.com.ar>
+# Maintainer: John K Luebs <jkl at johnluebs com>
+# Contributor: Hugo Osvaldo Barrera <hugo@osvaldobarrera.com.ar>
+
+# I maintain this on github, feel free to submit a pull request to
+# https://github.com/jkl1337/packages-archlinux.git
 
 pkgname=ocamlfuse
 pkgver=2.7.1
-pkgrel=2
+pkgrel=4
 pkgdesc="An ocaml binding for fuse."
 arch=('x86_64' 'i686')
 url="http://sourceforge.net/apps/mediawiki/ocamlfuse"
